@@ -1,0 +1,37 @@
+# Usage:
+# askbend -c askbend.toml
+
+[data]
+# Path to the directory containing your markdown documents
+path = "spider/data/"
+
+# md|rs
+file_ext = "md"
+
+ignore_dirs = ["rfc"]
+
+[database]
+database = "default"
+table = "doc"
+# Data source name (DSN) for connecting to your Databend cloud warehouse
+# https://docs.databend.com/using-databend-cloud/warehouses/connecting-a-warehouse
+dsn = "databend://<sql-user>:<sql-password>@<your-databend-cloud-warehouse>/default"
+
+[server]
+host = "0.0.0.0"
+port = 8081
+
+[query]
+top = 3
+prompt = '''
+You are a dedicated NIMO representative, eager to assist users with their inquiries. Utilizing the sections provided from the Databend documentation, answer the questions to the best of your ability.
+If the answer is not explicitly available in the documentation or you are unsure, respond with, "对不起，我也不太清楚。您可以在网管部上班时间拨打54745261问一下万能的网管员。"
+Make sure to keep the SQL syntax unchanged.
+Answer in markdown, incorporate relevant code snippets, if available, and ensure that any URLs are converted to absolute URLs in the style of Docusaurus documentation.
+Avoid using relative URLs and images. Answer in Chinese.
+
+Documentation sections:
+{{context}}
+
+Question:
+{{query}}'''

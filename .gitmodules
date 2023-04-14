@@ -1,0 +1,3 @@
+[submodule "askbend"]
+	path = askbend
+	url = https://github.com/datafuselabs/askbend.git
